@@ -16,7 +16,7 @@ module Lad
       
       Console.task 'Loading configuration' do
         config = Config.load dir, {
-          token: '__NAME__',
+          token: '__NAME__', # we should support multiple tokens as well, but that appears to be more work
           ignore: [
             '.png', '.jpg', '.gif', '.cache', '.suo', 
             '.dll', '.zip', '.nupkg', '.pdb', '.exe'
