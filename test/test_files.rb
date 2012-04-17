@@ -6,31 +6,19 @@ require './lib/files' # SUT
 describe Lad::Files do
   describe 'resolving the new file name' do
     it 'replaces the token with the name in the filename only' do
-      Lad::Files.new_filename(
-        '/var/tmp/__NAME__/__NAME__.sln',
-        '__NAME__',
-        'Assertion').must_match '/var/tmp/__NAME__/Assertion.sln'
+      Lad::Files.new_filename( '/var/tmp/__NAME__/__NAME__.sln', '__NAME__', 'Assertion').must_match '/var/tmp/__NAME__/Assertion.sln'
     end
 
     it 'will also replace tokens in the bottom most directory of a directory is passed' do
-      Lad::Files.new_filename(
-        '/var/tmp/__NAME__/__NAME__',
-        '__NAME__',
-        'Assertion').must_match '/var/tmp/__NAME__/Assertion'
+      Lad::Files.new_filename('/var/tmp/__NAME__/__NAME__', '__NAME__', 'Assertion').must_match '/var/tmp/__NAME__/Assertion'
     end
 
     it 'will disregard a trailing slash on directory token replacement' do
-      Lad::Files.new_filename(
-        '/var/tmp/__NAME__/__NAME__/',
-        '__NAME__',
-        'Assertion').must_match '/var/tmp/__NAME__/Assertion'
+      Lad::Files.new_filename('/var/tmp/__NAME__/__NAME__/', '__NAME__', 'Assertion').must_match '/var/tmp/__NAME__/Assertion'
     end
 
     it 'will do nothing if the bottom most item hasn;t got the token' do
-      Lad::Files.new_filename(
-        '/var/tmp/__NAME__/__NAME__/Test.sln',
-        '__NAME__',
-        'Assertion').must_match '/var/tmp/__NAME__/__NAME__/Test.sln'
+      Lad::Files.new_filename('/var/tmp/__NAME__/__NAME__/Test.sln', '__NAME__', 'Assertion').must_match '/var/tmp/__NAME__/__NAME__/Test.sln'
     end
   end
 
