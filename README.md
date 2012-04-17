@@ -60,6 +60,8 @@ SYL, once the repository has been cloned will check for the existence of file wi
 
 ## Changes
 
+17 Apr 2012 - Version 0.0.1 released.
+
 ## Roadmap
 
 - __accept multiple tokens via command line or via interactive shell__
