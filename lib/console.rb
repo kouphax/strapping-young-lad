@@ -1,6 +1,4 @@
 module Lad
-  require 'colorize'
-
   class Console
     def self.log msg
       puts msg

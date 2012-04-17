@@ -1,5 +1,15 @@
 #!/usr/bin/env ruby
 
+
+require 'git'
+require 'fileutils'
+require 'colorize'
+require 'tmpdir'
+
+require 'console'
+require 'parser'
+require 'config'
+require 'files'
 require 'lad'
 
 Lad::Bootstrapper.execute

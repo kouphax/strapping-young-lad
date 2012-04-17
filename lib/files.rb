@@ -1,6 +1,4 @@
 module Lad
-  require 'git'
-
   class Files
     def self.new_filename(item, token, name)
       item_dir  = File.dirname item
@@ -10,7 +8,7 @@ module Lad
     end
 
     def self.delete_temporary_files(dir)
-      FileUtils.rm_rf File.join(dir) if Dir.exists? dir
+      FileUtils.rm_rf dir if Dir.exists? dir
     end
 
     def self.clone_and_orphan(url, dir)

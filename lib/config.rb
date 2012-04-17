@@ -1,4 +1,5 @@
 module Lad
+  require 'yaml'
   class Config
     def self.load(dir, default_config)
       config_file = File.join dir, '.ladconfig'

@@ -1,20 +1,11 @@
-require 'tmpdir'
-require 'git'
-require 'fileutils'
-
-require './console'
-require './parser'
-require './config'
-require './files'
-
 module Lad
   class Bootstrapper
-    def execute
+    def self.execute
+      files_processed = 0
+      dirs_processed  = 0
       options         = Arguments.extract
       dir             = File.join(Dir.tmpdir, options[:name])
       config          = {}
-      files_processed = 0
-      dirs_processed  = 0
 
       puts '' # insert new line padding
 
@@ -25,6 +16,7 @@ module Lad
       
       Console.task 'Loading configuration' do
         config = Config.load dir, {
+          token: '__NAME__',
           ignore: [
             '.png', '.jpg', '.gif', '.cache', '.suo', 
             '.dll', '.zip', '.nupkg', '.pdb', '.exe'
@@ -36,10 +28,10 @@ module Lad
         Dir.glob(File.join dir, '**/*').each do |item|
           if !File.directory?(item)
             files_processed += 1     
-            new_item = Files.new_filename item, '__NAME__', options[:name] 
+            new_item = Files.new_filename item, config[:token], options[:name] 
             File.rename(item, new_item) if item != new_item
 
-            Files.replace_token_in_file config[:ignore], new_item, '__NAME__', options[:name]
+            Files.replace_token_in_file config[:ignore], new_item, config[:token], options[:name]
           end
         end
       end
@@ -48,7 +40,7 @@ module Lad
         Dir.glob(File.join dir, '**/*').each do |item|
           if File.directory?(item)
             dirs_processed += 1
-            new_item = Files.new_filename item, '__NAME__', options[:name] 
+            new_item = Files.new_filename item, config[:token], options[:name] 
             File.rename(item, new_item) if item != new_item
           end
         end

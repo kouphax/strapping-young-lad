@@ -17,4 +17,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('git')
   gem.add_dependency('colorize')
+
+  gem.add_development_dependency('minitest')
 end
