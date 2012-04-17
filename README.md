@@ -1,5 +1,7 @@
 # Strapping Young Lad (or just Lad for short)
 
+[![endorse](http://api.coderwall.com/kouphax/endorsecount.png)](http://coderwall.com/kouphax)
+
 __Strapping Young Lad__ is a tokenised solution template substitution engine.  A bit of a mouthful I know but it actually much simpler than it sounds (and hopefully much more useful that you'd think).  So what does it do?  Well running
 
     lad /path/to/git/repo MyNewProject
@@ -67,3 +69,4 @@ SYL, once the repository has been cloned will check for the existence of file wi
 
 - __accept multiple tokens via command line or via interactive shell__
 - zip support (generate project from zip file)
+
