@@ -1,6 +1,23 @@
+require 'optparse'
+
 module Lad
   class Bootstrapper
     def self.execute
+
+      optparser = OptionParser.new do |opts|
+        opts.banner = '''
+  Usage: lad [-h|--help] [<path_to_git_repo> <project_name>]
+
+  Templated project token replacer/bootstrapper
+        '''
+        opts.on('-h', '--help', 'Displays this screen') do |v|
+          puts opts
+          exit
+        end
+      end
+
+      optparser.parse!
+
       files_processed = 0
       dirs_processed  = 0
       options         = Arguments.extract
