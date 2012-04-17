@@ -60,8 +60,8 @@ SYL, once the repository has been cloned will check for the existence of file wi
 
 ## Changes
 
-17 Apr 2012 - Version 0.0.2 released.  Addition of simple help text on the command line.
-17 Apr 2012 - Version 0.0.1 released.
+    17 Apr 2012 - Version 0.0.2 released.  Addition of simple help text on the command line.
+    17 Apr 2012 - Version 0.0.1 released.
 
 ## Roadmap
 
