@@ -62,11 +62,11 @@ SYL, once the repository has been cloned will check for the existence of file wi
 
 ## Changes
 
+    20 Apr 2012 - Version 0.1.2 released.  .ladconfig now accepts multiple tokens to be specified.
     17 Apr 2012 - Version 0.0.2 released.  Addition of simple help text on the command line.
     17 Apr 2012 - Version 0.0.1 released.
 
 ## Roadmap
 
-- __accept multiple tokens via command line or via interactive shell__
 - zip support (generate project from zip file)
-
+- other things as yet undetermined
