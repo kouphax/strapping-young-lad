@@ -41,7 +41,7 @@ The example above shows you how to use the gem,
     lad <PathToRepo> <ProjectName>
 
 - `PathToRepo` is the git repository url that will be cloned
-- `ProjectName` is the name of the project.  This will replace the `__NAME__` token in the repository directories, files and contents
+- `ProjectName` is the name of the project.  This will replace the `__NAME__` token in the repository directories, files and contents.  It is possible to declare other tokens as well via the `.ladconfig` file
 
 ## Configuring the engine via `.ladconfig`
 
@@ -49,7 +49,7 @@ SYL, once the repository has been cloned will check for the existence of file wi
 
 ### Configuration Options
 
-- `token` - this is the token/indetifier that will be replaced in the template with the name of the project (defaults to `__NAME__`)
+- `token` - this is the token/indetifier that will be replaced in the template with the name of the project (defaults to `__NAME__`).  This option will also accept and array of tokens ['__NAME__', '__NAMESPACE__'].  In this case the user will be prompted for the values of these tokens.
 - `ignore` - a list of extensions that SYL will ignore when it comes to replacing CONTENTS.  It will still RENAME the file if the file name includes the token.  This allows us to ignore binary files whose contents should not change.
 
 ## Contributing

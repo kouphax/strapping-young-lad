@@ -1,8 +1,11 @@
 require 'optparse'
+require 'readline'
 
 module Lad
   class Bootstrapper
     def self.execute
+
+      # input_tokens = nil
 
       optparser = OptionParser.new do |opts|
         opts.banner = '''
@@ -14,6 +17,14 @@ module Lad
           puts opts
           exit
         end
+
+        # opts.on('-t TOKENS', '--tokens TOKENS', 'Tokens to replace in the form of, token:value token:value') do |tokens|
+        #   input_tokens = Hash[*tokens.map { |v| 
+        #     v.split ':'
+        #   }.flat_map { |kvp| 
+        #     ["__#{kvp.first.upcase}__", kvp.last] 
+        #   }]
+        # end
       end
 
       optparser.parse!
@@ -33,22 +44,31 @@ module Lad
       
       Console.task 'Loading configuration' do
         config = Config.load dir, {
-          token: '__NAME__', # we should support multiple tokens as well, but that appears to be more work
-          ignore: [
-            '.png', '.jpg', '.gif', '.cache', '.suo', 
-            '.dll', '.zip', '.nupkg', '.pdb', '.exe'
-          ]
+          'token'  => '__NAME__'
         }
+      end
+
+      Console.task 'Parsing tokens and stuff' do
+        puts ''
+        config['token_values'] = Config.get_token_values config, options[:name]
+        puts ''
       end
 
       Console.task 'Processing files' do
         Dir.glob(File.join dir, '**/*').each do |item|
           if !File.directory?(item)
-            files_processed += 1     
-            new_item = Files.new_filename item, config[:token], options[:name] 
-            File.rename(item, new_item) if item != new_item
+            files_processed += 1  
 
-            Files.replace_token_in_file config[:ignore], new_item, config[:token], options[:name]
+            config['token_values'].each do |token|
+              new_item = Files.new_filename item, *token
+
+              if item != new_item
+                File.rename(item, new_item)
+                item = new_item
+              end
+              
+              Files.replace_token_in_file config['ignore'], new_item, *token         
+            end
           end
         end
       end
@@ -57,8 +77,13 @@ module Lad
         Dir.glob(File.join dir, '**/*').each do |item|
           if File.directory?(item)
             dirs_processed += 1
-            new_item = Files.new_filename item, config[:token], options[:name] 
-            File.rename(item, new_item) if item != new_item
+            config['token_values'].each do |token|
+              new_item = Files.new_filename item, *token
+              if item != new_item
+                File.rename(item, new_item)
+                item = new_item
+              end   
+            end
           end
         end
       end

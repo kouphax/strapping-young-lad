@@ -17,11 +17,20 @@ module Lad
     end
 
     def self.replace_token_in_file(exclusions, file, token, name)
-      if !exclusions.member?(File.extname file)
-        contents = File.read(file).gsub!(token, name)
-        File.open(file, 'w') { |f| 
-          f.puts contents 
-        }
+      if exclusions.nil? || !exclusion.member?(File.extname file)
+        begin
+          contents = File.read(file).gsub!(token, name)
+          File.open(file, 'w') { |f| 
+            f.puts contents 
+          }
+        rescue
+          # oh yeah great idea swallow exceptions! so binary files can't be parsed etc these
+          # need to be excluded by the config.  Wait lets rethrow like a boss
+          Console.error '  Looks like you are trying to token replace the contents of a binary. '
+          Console.error '  Perhaps you need to exclude this in the .ladconfig file? '
+          
+          throw 'Attempting to modify binary file'
+        end
       end
     end
   end
