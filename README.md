@@ -70,5 +70,7 @@ SYL, once the repository has been cloned will check for the existence of file wi
 
 ## Roadmap
 
-- zip support (generate project from zip file)
-- other things as yet undetermined
+- Allow additional logic to be embedded into tokens.  For example I may have a `__NAMESPACE__` token such as `org.syl.example` that, due to the convention in Java, I would want expanded to mutliple folders rather than a single folder.  So rather than create a folder named `.\org.syl.example` it would create 3 nested folders `.\org\syl\example`.
+- Allow values for tokens to be passed without user intervention e.g. via the command line.
+- Verbose option
+- More tests - the quality of the releases so far has been dire.  Need to improve this somewhat.
