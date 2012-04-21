@@ -51,6 +51,7 @@ SYL, once the repository has been cloned will check for the existence of file wi
 
 - `token` - this is the token/indetifier that will be replaced in the template with the name of the project (defaults to `__NAME__`).  This option will also accept and array of tokens ['__NAME__', '__NAMESPACE__'].  In this case the user will be prompted for the values of these tokens.
 - `ignore` - a list of extensions that SYL will ignore when it comes to replacing CONTENTS.  It will still RENAME the file if the file name includes the token.  This allows us to ignore binary files whose contents should not change.
+- `tasks` - Can be a single string or a list or shell commands to run in the newly created project directory.
 
 ## Contributing
 
@@ -62,6 +63,7 @@ SYL, once the repository has been cloned will check for the existence of file wi
 
 ## Changes
 
+    21 Apr 2012 - Version 0.2.2 released.  Add the "tasks" config option to .ladconfig
     20 Apr 2012 - Version 0.1.2 released.  .ladconfig now accepts multiple tokens to be specified.
     17 Apr 2012 - Version 0.0.2 released.  Addition of simple help text on the command line.
     17 Apr 2012 - Version 0.0.1 released.

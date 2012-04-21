@@ -4,9 +4,7 @@ require 'readline'
 module Lad
   class Bootstrapper
     def self.execute
-
-      # input_tokens = nil
-
+    
       optparser = OptionParser.new do |opts|
         opts.banner = '''
   Usage: lad [-h|--help] [<path_to_git_repo> <project_name>]
@@ -17,14 +15,6 @@ module Lad
           puts opts
           exit
         end
-
-        # opts.on('-t TOKENS', '--tokens TOKENS', 'Tokens to replace in the form of, token:value token:value') do |tokens|
-        #   input_tokens = Hash[*tokens.map { |v| 
-        #     v.split ':'
-        #   }.flat_map { |kvp| 
-        #     ["__#{kvp.first.upcase}__", kvp.last] 
-        #   }]
-        # end
       end
 
       optparser.parse!
@@ -61,9 +51,8 @@ module Lad
 
             config['token_values'].each do |token|
               new_item = Files.new_filename item, *token
-
               if item != new_item
-                File.rename(item, new_item)
+                File.rename item, new_item 
                 item = new_item
               end
               
@@ -80,7 +69,7 @@ module Lad
             config['token_values'].each do |token|
               new_item = Files.new_filename item, *token
               if item != new_item
-                File.rename(item, new_item)
+                File.rename item, new_item
                 item = new_item
               end   
             end
@@ -88,8 +77,19 @@ module Lad
         end
       end
 
+      target_dir = File.join Dir.pwd, options[:name]
       Console.task 'Moving project files' do
-        File.rename dir, File.join(Dir.pwd, options[:name])
+        File.rename dir, target_dir
+      end
+
+      tasks = config['tasks']
+      if !tasks.nil?
+        Console.task 'Executing tasks' do
+          Dir.chdir target_dir # go to target directory
+
+          tasks = [tasks] if tasks.class == String
+          tasks.each { |cmd| system cmd }
+        end
       end
 
       Console.success "\n  Done processing #{files_processed} file(s)"
