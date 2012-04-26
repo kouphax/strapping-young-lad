@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Strapping-young-lad by kouphax</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/kouphax/strapping-young-lad">Fork On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/kouphax/strapping-young-lad/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/kouphax/strapping-young-lad/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Strapping-young-lad</h1>
+          <p>Project Template Bootstrapper</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/kouphax">kouphax</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>Strapping Young Lad (or just Lad for short)</h1>
+
+<p><a href="http://coderwall.com/kouphax"><img src="http://api.coderwall.com/kouphax/endorsecount.png" alt="endorse"></a></p>
+
+<p><strong>Strapping Young Lad</strong> is a tokenised solution template substitution engine.  A bit of a mouthful I know but it actually much simpler than it sounds (and hopefully much more useful that you'd think).  So what does it do?  Well running</p>
+
+<pre><code>lad /path/to/git/repo MyNewProject
+</code></pre>
+
+<p>Will do the following things,</p>
+
+<ol>
+<li>Clone the repo at <code>path/to/git/repo</code> into a temporary folder</li>
+<li>Remove the <code>.git</code> folder from the repo</li>
+<li>Check for the existence of a <code>.ladconfig</code> in the freshly cloned repo
+
+<ul>
+<li>If one exists it loads the config setting</li>
+<li>Otherwise it falls back to the defaults</li>
+</ul>
+</li>
+<li>Replace all instances of the configured token (eg. <code>__NAME__</code>) in all files, directories and file contents with the project name (in our case <code>MyNewProject</code>)</li>
+<li>Copy the new folder over to your current working directory (<code>./MyNewProject</code>)</li>
+</ol><p>What this allows you to do is have a standard project template for pretty much anything (.NET, Ruby, Scala - listen I mean anything - if it a collection of folders and files in a git repo then you set) and create a new instance with a few keystrokes - saving you time and potential RSI.</p>
+
+<p>SYL was inspired by <a href="https://github.com/chucknorris/warmup">WarmuP</a> which is itself a gem but it requires you to be running .NET which for a lot of my requirement isn't going to cut it.</p>
+
+<h2>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'lad'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install lad
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>The example above shows you how to use the gem,</p>
+
+<pre><code>lad &lt;PathToRepo&gt; &lt;ProjectName&gt;
+</code></pre>
+
+<ul>
+<li>
+<code>PathToRepo</code> is the git repository url that will be cloned</li>
+<li>
+<code>ProjectName</code> is the name of the project.  This will replace the <code>__NAME__</code> token in the repository directories, files and contents.  It is possible to declare other tokens as well via the <code>.ladconfig</code> file</li>
+</ul><h2>Configuring the engine via <code>.ladconfig</code>
+</h2>
+
+<p>SYL, once the repository has been cloned will check for the existence of file with the name <code>.ladconfig</code> from which it will load the settings.  If it doesn't exist the default setting will be applied.</p>
+
+<h3>Configuration Options</h3>
+
+<ul>
+<li>
+<code>token</code> - this is the token/indetifier that will be replaced in the template with the name of the project (defaults to <code>__NAME__</code>).  This option will also accept and array of tokens ['<strong>NAME</strong>', '<strong>NAMESPACE</strong>'].  In this case the user will be prompted for the values of these tokens.</li>
+<li>
+<code>ignore</code> - a list of extensions that SYL will ignore when it comes to replacing CONTENTS.  It will still RENAME the file if the file name includes the token.  This allows us to ignore binary files whose contents should not change.</li>
+</ul><h2>Contributing</h2>
+
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Added some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol><h2>Changes</h2>
+
+<pre><code>20 Apr 2012 - Version 0.1.2 released.  .ladconfig now accepts multiple tokens to be specified.
+17 Apr 2012 - Version 0.0.2 released.  Addition of simple help text on the command line.
+17 Apr 2012 - Version 0.0.1 released.
+</code></pre>
+
+<h2>Roadmap</h2>
+
+<ul>
+<li>zip support (generate project from zip file)</li>
+<li>other things as yet undetermined</li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-19143623-10");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
