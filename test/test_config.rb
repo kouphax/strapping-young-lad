@@ -1,29 +1,20 @@
 require 'minitest/autorun'
 require 'tmpdir'
 require 'fileutils'
+require './test/testutils'
 
 require './lib/config' # SUT
 
 describe Lad::Config do
-  before do
-    @dir  = File.join Dir.tmpdir, (0..16).to_a.map{|a| rand(16).to_s(16)}.join
-    @file = File.join @dir, '.ladconfig'
-    @cfg  = {
-      'a_property' => 'property_value'
-    }
+  include TestUtils
 
-    FileUtils.rm_rf @dir if Dir.exists? @dir
-    FileUtils.mkdir @dir
-  end
-
-  after do
-    FileUtils.rm_rf @dir
-  end
+  before &:prepare_files_and_folders
+  after  &:clear_temp_files
 
   describe 'when loading a file that does not exist' do
     
     before do
-      File.delete @file if File.exists? @file
+      File.delete @cfgfile if File.exists? @cfgfile
     end
 
     it 'returns the default values' do
@@ -33,7 +24,7 @@ describe Lad::Config do
 
   describe 'when loading a file that does exist' do
     before do
-      File.open(@file, 'w') do |f| 
+      File.open(@cfgfile, 'w') do |f| 
         f.puts '''a_property: file_value''' 
       end
     end

@@ -74,3 +74,4 @@ SYL, once the repository has been cloned will check for the existence of file wi
 - Allow values for tokens to be passed without user intervention e.g. via the command line.
 - Verbose option
 - More tests - the quality of the releases so far has been dire.  Need to improve this somewhat.
+- Travis build setup

@@ -1,12 +1,14 @@
 require 'minitest/autorun'
 require 'tmpdir'
+require './test/testutils'
 
 require './lib/files' # SUT
+
 
 describe Lad::Files do
   describe 'resolving the new file name' do
     it 'replaces the token with the name in the filename only' do
-      Lad::Files.new_filename( '/var/tmp/__NAME__/__NAME__.sln', '__NAME__', 'Assertion').must_match '/var/tmp/__NAME__/Assertion.sln'
+      Lad::Files.new_filename('/var/tmp/__NAME__/__NAME__.sln', '__NAME__', 'Assertion').must_match '/var/tmp/__NAME__/Assertion.sln'
     end
 
     it 'will also replace tokens in the bottom most directory of a directory is passed' do
@@ -24,15 +26,11 @@ describe Lad::Files do
 
   describe 'replacing token in files' do
 
-    before do
-      @dir  = File.join Dir.tmpdir, (0..16).to_a.map{|a| rand(16).to_s(16)}.join
-      @file = File.join @dir, 'targetfile.txt'
-      @cfg  = {
-        'a_property' => 'property_value'
-      }
+    include TestUtils
 
-      FileUtils.rm_rf @dir if Dir.exists? @dir
-      FileUtils.mkdir @dir
+    before do
+
+      prepare_files_and_folders
 
       @original = '''
         lorem lorem __NAME__ lorem lorem
@@ -46,9 +44,7 @@ describe Lad::Files do
       File.open(@file, 'w') { |f| f.puts @original }
     end
 
-    after do
-      FileUtils.rm_rf @dir
-    end
+    after &:clear_temp_files
 
     it 'will replace all instances of the token in a file' do
       Lad::Files.replace_token_in_file [], @file, '__NAME__', 'Assertion'
