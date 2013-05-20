@@ -89,7 +89,7 @@ module Lad
       end
 
       Console.task 'Moving project files' do
-        File.rename dir, File.join(Dir.pwd, options[:name])
+        mv(dir, File.join(Dir.pwd, options[:name]))
       end
 
       Console.success "\n  Done processing #{files_processed} file(s)"
