@@ -19,7 +19,7 @@ module Lad
     def self.replace_token_in_file(exclusions, file, token, name)
       if exclusions.nil? || !exclusion.member?(File.extname file)
         begin
-          contents = File.read(file).gsub!(token, name)
+          contents = File.read(file).gsub(token, name)
           File.open(file, 'w') { |f| 
             f.puts contents 
           }
