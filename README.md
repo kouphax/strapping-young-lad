@@ -1,6 +1,8 @@
-# Strapping Young Lad (or just Lad for short)
+# No longer actively maintained!
 
-[![endorse](http://api.coderwall.com/kouphax/endorsecount.png)](http://coderwall.com/kouphax)
+------------------------------------------------------
+
+# Strapping Young Lad (or just Lad for short)
 
 __Strapping Young Lad__ is a tokenised solution template substitution engine.  A bit of a mouthful I know but it actually much simpler than it sounds (and hopefully much more useful that you'd think).  So what does it do?  Well running
 
